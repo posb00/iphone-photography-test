@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CommentWritten;
-use App\Models\Comment;
 use App\Models\User;
 
 class AchievementsController extends Controller
@@ -19,24 +17,4 @@ class AchievementsController extends Controller
         ]);
     }
 
-    public function call()
-    {
-        $comment = new Comment();
-        $comment->fill([
-            'body' => 'primer comentario',
-            'user_id' => 1,
-        ]);
-
-        event(new CommentWritten($comment));
-
-    }
-
-    public function callLesson()
-    {
-        $lesson = Lesson::find(4);
-        $user = User::find(1);
-
-        event(new LessonWatched($lesson, $user));
-
-    }
 }
