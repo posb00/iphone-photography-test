@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLessonUserTable extends Migration
+class CreateAchievementUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateLessonUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('lesson_user', function (Blueprint $table) {
+        Schema::create('achievement_user', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('lesson_id')->constrained();
-            $table->boolean('watched')->default(false);
+            $table->foreignId('achievement_id')->constrained();
+            $table->timestamp('earned_at')->useCurrent();
+            $table->unique(['user_id', 'achievement_id']);
         });
     }
 
@@ -27,6 +28,6 @@ class CreateLessonUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lesson_user');
+        Schema::dropIfExists('achievement_user');
     }
 }
